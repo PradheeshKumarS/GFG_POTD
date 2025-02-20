@@ -1,0 +1,35 @@
+#Problem
+Find median in a stream
+
+Approach:
+In this problem, we can apply insertion sort technique to sort the array inplace for every array element. After sorting the array inplace for every element, its easy to calculate median for each subarray.
+
+Code(Java) :
+
+class Solution {
+    public ArrayList<Double> getMedian(int[] arr) {
+        
+        ArrayList<Double> list = new ArrayList<>();
+        list.add((double) arr[0]);
+        
+        for(int i = 1 ; i < arr.length ; i++) {
+            int j = i;
+            while(j > 0 && arr[j] < arr[j - 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j - 1];
+                arr[j - 1] = temp;
+                j--;
+            }
+            
+            int mid = (i + 1) / 2;
+            if((i + 1) % 2 == 1) {
+                list.add((double) arr[mid]);
+            }
+            else {
+                list.add((double) (arr[mid] + arr[mid - 1]) / 2);
+            }
+        }
+        
+        return list;
+    }
+}
